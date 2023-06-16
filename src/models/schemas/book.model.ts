@@ -3,18 +3,18 @@ import {Schema, model} from "mongoose";
 interface IBook {
     title: string;
     description: string;
-    author: string;
-    keywords: object[];
+    author: any;
+    keywords: any;
 }
 
-const keywordSchema = new Schema({
+export const keywordSchema = new Schema({
     keyword: String
 });
 
 const bookSchema = new Schema<IBook>({
     title: String,
     description: String,
-    author: String,
+    author: [{type: Schema.Types.ObjectId, ref: 'Author'}],
     keywords: [keywordSchema]
 });
 

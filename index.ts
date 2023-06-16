@@ -1,6 +1,5 @@
 import express from "express";
 import bodyParser from "body-parser";
-import mongoose from "mongoose";
 import {Database} from "./src/models/data-source";
 import bookRoutes from "./src/router/book.router";
 

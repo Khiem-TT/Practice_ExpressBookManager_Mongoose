@@ -21,24 +21,12 @@
 /// <reference types="mongoose/types/utility" />
 /// <reference types="mongoose/types/validation" />
 /// <reference types="mongoose/types/virtuals" />
+/// <reference types="mongoose" />
 /// <reference types="mongoose/types/inferschematype" />
-import { Schema } from "mongoose";
-interface IBook {
-    title: string;
-    description: string;
-    author: any;
-    keywords: any;
+interface IAuthor {
+    name: string;
 }
-export declare const keywordSchema: Schema<any, import("mongoose").Model<any, any, any, any, any, any>, {}, {}, {}, {}, import("mongoose").DefaultSchemaOptions, {
-    keyword?: string;
-}, import("mongoose").Document<unknown, {}, import("mongoose").FlatRecord<{
-    keyword?: string;
-}>> & Omit<import("mongoose").FlatRecord<{
-    keyword?: string;
-}> & {
-    _id: import("mongoose").Types.ObjectId;
-}, never>>;
-declare const Book: import("mongoose").Model<IBook, {}, {}, {}, import("mongoose").Document<unknown, {}, IBook> & Omit<IBook & {
+declare const Author: import("mongoose").Model<IAuthor, {}, {}, {}, import("mongoose").Document<unknown, {}, IAuthor> & Omit<IAuthor & {
     _id: import("mongoose").Types.ObjectId;
 }, never>, any>;
-export { Book };
+export { Author };
