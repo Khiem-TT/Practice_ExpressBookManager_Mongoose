@@ -54,7 +54,16 @@ class BookController {
     }
     static async getListBook(req, res) {
         try {
-            const books = await book_model_1.Book.find().populate({
+            let query = {};
+            if (req.query.keyword && req.query.keyword != '') {
+                let keywordFind = req.query.keyword || '';
+                query = {
+                    "keywords.keyword": {
+                        $regex: keywordFind
+                    }
+                };
+            }
+            const books = await book_model_1.Book.find(query).populate({
                 path: 'author',
                 select: 'name'
             });
