@@ -55,13 +55,18 @@ class BookController {
     static async getListBook(req, res) {
         try {
             let query = {};
-            if (req.query.keyword && req.query.keyword != '') {
+            if (req.query.keyword && req.query.keyword !== '') {
                 let keywordFind = req.query.keyword || '';
                 query = {
                     "keywords.keyword": {
                         $regex: keywordFind
                     }
                 };
+            }
+            if (req.query.author && req.query.author !== '') {
+                let authorFind = req.query.author || '';
+                let author = await author_model_1.Author.find({ name: { $regex: authorFind } });
+                query = Object.assign(Object.assign({}, query), { author: author });
             }
             const books = await book_model_1.Book.find(query).populate({
                 path: 'author',
@@ -79,9 +84,8 @@ class BookController {
                 path: 'author',
                 select: 'name'
             });
-            const author = book.author[0].name;
             if (book) {
-                res.render('updateBook', { book: book, author });
+                res.render('updateBook', { book: book });
             }
             else {
                 res.render("error");
@@ -96,6 +100,8 @@ class BookController {
             const book = await book_model_1.Book.findOne({ _id: req.params.id });
             if (book) {
                 await book.deleteOne({ _id: req.params.id });
+                let idBookDelete = book.author[0]._id.toString();
+                await author_model_1.Author.deleteOne({ _id: idBookDelete });
                 res.status(200).json({ message: "Success!" });
             }
             else {
