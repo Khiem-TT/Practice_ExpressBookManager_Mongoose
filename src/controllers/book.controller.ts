@@ -5,6 +5,7 @@ export class BookController {
     static async createBook(req, res) {
         try {
             const bookNew = new Book(req.body);
+            bookNew.keywords.push({keyword: req.body.keyword});
             const book = await bookNew.save();
             if (book) {
                 res.render('success');
@@ -36,6 +37,7 @@ export class BookController {
     static async getListBook(req, res) {
         try {
             const books = await Book.find();
+            console.log(books)
             res.render('listBook', {books: books});
         } catch (err) {
             res.render("error");

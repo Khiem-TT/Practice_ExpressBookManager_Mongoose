@@ -4,12 +4,18 @@ interface IBook {
     title: string;
     description: string;
     author: string;
+    keywords: object[];
 }
+
+const keywordSchema = new Schema({
+    keyword: String
+});
 
 const bookSchema = new Schema<IBook>({
     title: String,
     description: String,
-    author: String
+    author: String,
+    keywords: [keywordSchema]
 });
 
 const Book = model<IBook>('Book', bookSchema);

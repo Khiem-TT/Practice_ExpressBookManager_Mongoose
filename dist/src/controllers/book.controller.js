@@ -6,6 +6,7 @@ class BookController {
     static async createBook(req, res) {
         try {
             const bookNew = new book_model_1.Book(req.body);
+            bookNew.keywords.push({ keyword: req.body.keyword });
             const book = await bookNew.save();
             if (book) {
                 res.render('success');
@@ -39,6 +40,7 @@ class BookController {
     static async getListBook(req, res) {
         try {
             const books = await book_model_1.Book.find();
+            console.log(books);
             res.render('listBook', { books: books });
         }
         catch (err) {
@@ -47,9 +49,7 @@ class BookController {
     }
     static async getUpdateBookPage(req, res) {
         try {
-            console.log(123);
             const book = await book_model_1.Book.findOne({ _id: req.params.id });
-            console.log(book, 'book');
             if (book) {
                 res.render('updateBook', { book: book });
             }

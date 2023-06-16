@@ -27,6 +27,7 @@ interface IBook {
     title: string;
     description: string;
     author: string;
+    keywords: object[];
 }
 declare const Book: import("mongoose").Model<IBook, {}, {}, {}, import("mongoose").Document<unknown, {}, IBook> & Omit<IBook & {
     _id: import("mongoose").Types.ObjectId;
